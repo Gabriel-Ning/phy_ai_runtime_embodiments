@@ -1,0 +1,24 @@
+[submodule "robots/piper/piper_description"]
+	path = robots/piper/piper_description
+	url = https://github.com/Gabriel-Ning/piper_description.git
+	branch = main
+[submodule "robots/piper/piper_hardware_interface"]
+	path = robots/piper/piper_hardware_interface
+	url = https://github.com/Gabriel-Ning/piper_hardware_interface.git
+	branch = main
+[submodule "robots/marvin/marvin_hardware_interface"]
+	path = robots/marvin/marvin_hardware_interface
+	url = https://github.com/Gabriel-Ning/marvin_hardware_interface.git
+	branch = main
+[submodule "robots/marvin/marvin_description"]
+	path = robots/marvin/marvin_description
+	url = https://github.com/Gabriel-Ning/marvin_description.git
+	branch = dev
+[submodule "end_effectors/pika_gripper/pika_gripper_description"]
+	path = end_effectors/pika_gripper/pika_gripper_description
+	url = https://github.com/Gabriel-Ning/pika_gripper_description.git
+	branch = main
+[submodule "end_effectors/pika_gripper/pika_gripper_hardware_interface"]
+	path = end_effectors/pika_gripper/pika_gripper_hardware_interface
+	url = https://github.com/Gabriel-Ning/pika_gripper_hardware_interface.git
+	branch = main
