@@ -22,3 +22,10 @@
 	path = end_effectors/pika_gripper/pika_gripper_hardware_interface
 	url = https://github.com/Gabriel-Ning/pika_gripper_hardware_interface.git
 	branch = main
+[submodule "robots/franka/franka_ros2"]
+	path = robots/franka/franka_ros2
+	url = https://github.com/frankarobotics/franka_ros2.git
+	branch = jazzy
+[submodule "robots/franka/franka_description"]
+	path = robots/franka/franka_description
+	url = https://github.com/frankarobotics/franka_description.git
