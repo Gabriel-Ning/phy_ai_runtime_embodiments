@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="piper_arm">
+  <xacro:include filename="$(find piper_description)/urdf/parts/piper_flange.xacro"/>
+  <xacro:macro name="piper_arm"
+    params="prefix:='' connected_to:='world' xyz:='0 0 0' rpy:='0 0 0' description_pkg:='piper_description'">
+    <xacro:property name="joint_limits" value="${xacro.load_yaml('$(find piper_description)/config/joint_limits.yaml')}"/>
+    <xacro:property name="inertials" value="${xacro.load_yaml('$(find piper_description)/config/inertials.yaml')}"/>
+    <xacro:property name="kinematics" value="${xacro.load_yaml('$(find piper_description)/config/kinematics.yaml')}"/>
+    <xacro:unless value="${not connected_to}">
+      <link name="${connected_to}"/>
+      <joint name="${prefix}base_mount_joint" type="fixed">
+        <parent link="${connected_to}"/>
+        <child link="${prefix}base_link"/>
+        <origin xyz="${xyz}" rpy="${rpy}"/>
+      </joint>
+    </xacro:unless>
+
+    <link name="${prefix}base_link">
+      <inertial>
+        <origin xyz="${inertials['base_link']['origin']['xyz']}" rpy="${inertials['base_link']['origin']['rpy']}"/>
+        <mass value="${inertials['base_link']['mass']}"/>
+        <inertia ixx="${inertials['base_link']['inertia']['xx']}" ixy="${inertials['base_link']['inertia']['xy']}" ixz="${inertials['base_link']['inertia']['xz']}" iyy="${inertials['base_link']['inertia']['yy']}" iyz="${inertials['base_link']['inertia']['yz']}" izz="${inertials['base_link']['inertia']['zz']}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/base_link.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/base_link.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <link name="${prefix}link1">
+      <inertial>
+        <origin xyz="${inertials['link1']['origin']['xyz']}" rpy="${inertials['link1']['origin']['rpy']}"/>
+        <mass value="${inertials['link1']['mass']}"/>
+        <inertia ixx="${inertials['link1']['inertia']['xx']}" ixy="${inertials['link1']['inertia']['xy']}" ixz="${inertials['link1']['inertia']['xz']}" iyy="${inertials['link1']['inertia']['yy']}" iyz="${inertials['link1']['inertia']['yz']}" izz="${inertials['link1']['inertia']['zz']}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/link1.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/link1.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}joint1" type="revolute">
+      <origin xyz="${kinematics['joint1']['origin']['xyz']}" rpy="${kinematics['joint1']['origin']['rpy']}"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link1"/>
+      <axis xyz="${kinematics['joint1']['axis']}"/>
+      <limit lower="${joint_limits['joint1']['limit']['lower']}"
+             upper="${joint_limits['joint1']['limit']['upper']}"
+             effort="${joint_limits['joint1']['limit']['effort']}"
+             velocity="${joint_limits['joint1']['limit']['velocity']}"/>
+    </joint>
+
+    <link name="${prefix}link2">
+      <inertial>
+        <origin xyz="${inertials['link2']['origin']['xyz']}" rpy="${inertials['link2']['origin']['rpy']}"/>
+        <mass value="${inertials['link2']['mass']}"/>
+        <inertia ixx="${inertials['link2']['inertia']['xx']}" ixy="${inertials['link2']['inertia']['xy']}" ixz="${inertials['link2']['inertia']['xz']}" iyy="${inertials['link2']['inertia']['yy']}" iyz="${inertials['link2']['inertia']['yz']}" izz="${inertials['link2']['inertia']['zz']}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/link2.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/link2.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}joint2" type="revolute">
+      <origin xyz="${kinematics['joint2']['origin']['xyz']}" rpy="${kinematics['joint2']['origin']['rpy']}"/>
+      <parent link="${prefix}link1"/>
+      <child link="${prefix}link2"/>
+      <axis xyz="${kinematics['joint2']['axis']}"/>
+      <limit lower="${joint_limits['joint2']['limit']['lower']}"
+             upper="${joint_limits['joint2']['limit']['upper']}"
+             effort="${joint_limits['joint2']['limit']['effort']}"
+             velocity="${joint_limits['joint2']['limit']['velocity']}"/>
+    </joint>
+
+    <link name="${prefix}link3">
+      <inertial>
+        <origin xyz="${inertials['link3']['origin']['xyz']}" rpy="${inertials['link3']['origin']['rpy']}"/>
+        <mass value="${inertials['link3']['mass']}"/>
+        <inertia ixx="${inertials['link3']['inertia']['xx']}" ixy="${inertials['link3']['inertia']['xy']}" ixz="${inertials['link3']['inertia']['xz']}" iyy="${inertials['link3']['inertia']['yy']}" iyz="${inertials['link3']['inertia']['yz']}" izz="${inertials['link3']['inertia']['zz']}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/link3.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/link3.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}joint3" type="revolute">
+      <origin xyz="${kinematics['joint3']['origin']['xyz']}" rpy="${kinematics['joint3']['origin']['rpy']}"/>
+      <parent link="${prefix}link2"/>
+      <child link="${prefix}link3"/>
+      <axis xyz="${kinematics['joint3']['axis']}"/>
+      <limit lower="${joint_limits['joint3']['limit']['lower']}"
+             upper="${joint_limits['joint3']['limit']['upper']}"
+             effort="${joint_limits['joint3']['limit']['effort']}"
+             velocity="${joint_limits['joint3']['limit']['velocity']}"/>
+    </joint>
+
+    <link name="${prefix}link4">
+      <inertial>
+        <origin xyz="${inertials['link4']['origin']['xyz']}" rpy="${inertials['link4']['origin']['rpy']}"/>
+        <mass value="${inertials['link4']['mass']}"/>
+        <inertia ixx="${inertials['link4']['inertia']['xx']}" ixy="${inertials['link4']['inertia']['xy']}" ixz="${inertials['link4']['inertia']['xz']}" iyy="${inertials['link4']['inertia']['yy']}" iyz="${inertials['link4']['inertia']['yz']}" izz="${inertials['link4']['inertia']['zz']}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/link4.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/link4.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}joint4" type="revolute">
+      <origin xyz="${kinematics['joint4']['origin']['xyz']}" rpy="${kinematics['joint4']['origin']['rpy']}"/>
+      <parent link="${prefix}link3"/>
+      <child link="${prefix}link4"/>
+      <axis xyz="${kinematics['joint4']['axis']}"/>
+      <limit lower="${joint_limits['joint4']['limit']['lower']}"
+             upper="${joint_limits['joint4']['limit']['upper']}"
+             effort="${joint_limits['joint4']['limit']['effort']}"
+             velocity="${joint_limits['joint4']['limit']['velocity']}"/>
+    </joint>
+
+    <link name="${prefix}link5">
+      <inertial>
+        <origin xyz="${inertials['link5']['origin']['xyz']}" rpy="${inertials['link5']['origin']['rpy']}"/>
+        <mass value="${inertials['link5']['mass']}"/>
+        <inertia ixx="${inertials['link5']['inertia']['xx']}" ixy="${inertials['link5']['inertia']['xy']}" ixz="${inertials['link5']['inertia']['xz']}" iyy="${inertials['link5']['inertia']['yy']}" iyz="${inertials['link5']['inertia']['yz']}" izz="${inertials['link5']['inertia']['zz']}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/link5.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/link5.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}joint5" type="revolute">
+      <origin xyz="${kinematics['joint5']['origin']['xyz']}" rpy="${kinematics['joint5']['origin']['rpy']}"/>
+      <parent link="${prefix}link4"/>
+      <child link="${prefix}link5"/>
+      <axis xyz="${kinematics['joint5']['axis']}"/>
+      <limit lower="${joint_limits['joint5']['limit']['lower']}"
+             upper="${joint_limits['joint5']['limit']['upper']}"
+             effort="${joint_limits['joint5']['limit']['effort']}"
+             velocity="${joint_limits['joint5']['limit']['velocity']}"/>
+    </joint>
+
+    <link name="${prefix}link6">
+      <inertial>
+        <origin xyz="${inertials['link6']['origin']['xyz']}" rpy="${inertials['link6']['origin']['rpy']}"/>
+        <mass value="${inertials['link6']['mass']}"/>
+        <inertia ixx="${inertials['link6']['inertia']['xx']}" ixy="${inertials['link6']['inertia']['xy']}" ixz="${inertials['link6']['inertia']['xz']}" iyy="${inertials['link6']['inertia']['yy']}" iyz="${inertials['link6']['inertia']['yz']}" izz="${inertials['link6']['inertia']['zz']}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/link6.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/link6.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <joint name="${prefix}joint6" type="revolute">
+      <origin xyz="${kinematics['joint6']['origin']['xyz']}" rpy="${kinematics['joint6']['origin']['rpy']}"/>
+      <parent link="${prefix}link5"/>
+      <child link="${prefix}link6"/>
+      <axis xyz="${kinematics['joint6']['axis']}"/>
+      <limit lower="${joint_limits['joint6']['limit']['lower']}"
+             upper="${joint_limits['joint6']['limit']['upper']}"
+             effort="${joint_limits['joint6']['limit']['effort']}"
+             velocity="${joint_limits['joint6']['limit']['velocity']}"/>
+    </joint>
+
+    <!-- Always provide a flange_link for downstream TCP/EE frames -->
+    <xacro:piper_flange
+      prefix="${prefix}"
+      parent_link="link6"
+      description_pkg="${description_pkg}"/>
+  </xacro:macro>
+</robot>

@@ -1,0 +1,12 @@
+<library path="piper_hardware_interface">
+  <class name="piper_hardware_interface/PiperHardwareInterface"
+         type="piper_hardware_interface::PiperHardwareInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>6-DOF Piper arm hardware interface using libpiper</description>
+  </class>
+  <class name="piper_hardware_interface/PiperGripperInterface"
+         type="piper_hardware_interface::PiperGripperInterface"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>Piper parallel gripper hardware interface using libpiper::Gripper</description>
+  </class>
+</library>

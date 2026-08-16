@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="piper_ros2_control">
+  <xacro:macro name="piper_arm_ros2_control"
+    params="name:='PiperHardware' prefix:='' can_interface:='can0' use_fake_hardware:='false' mit_kd_effort_damping:='0.0'">
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:unless value="${use_fake_hardware}">
+          <plugin>piper_hardware_interface/PiperHardwareInterface</plugin>
+          <param name="can_interface">${can_interface}</param>
+          <!-- Side prefix for opaque state interfaces (robot_state, cartesian_pose, robot_time). -->
+          <param name="prefix">${prefix}</param>
+          <!-- MIT effort-mode velocity damping. Default 0.0 keeps the ROS effort interface torque-transparent. -->
+          <param name="mit_kd_effort_damping">${mit_kd_effort_damping}</param>
+        </xacro:unless>
+      </hardware>
+
+      <xacro:macro name="configure_joint" params="joint_name">
+        <joint name="${joint_name}">
+          <command_interface name="position"/>
+          <command_interface name="velocity"/>
+          <command_interface name="effort"/>
+          <state_interface name="position"/>
+          <state_interface name="velocity"/>
+          <state_interface name="effort"/>
+        </joint>
+      </xacro:macro>
+
+      <xacro:configure_joint joint_name="${prefix}joint1"/>
+      <xacro:configure_joint joint_name="${prefix}joint2"/>
+      <xacro:configure_joint joint_name="${prefix}joint3"/>
+      <xacro:configure_joint joint_name="${prefix}joint4"/>
+      <xacro:configure_joint joint_name="${prefix}joint5"/>
+      <xacro:configure_joint joint_name="${prefix}joint6"/>
+    </ros2_control>
+  </xacro:macro>
+</robot>

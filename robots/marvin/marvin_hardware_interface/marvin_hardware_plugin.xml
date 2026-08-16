@@ -1,0 +1,10 @@
+<library path="marvin_hardware_interface">
+  <class name="marvin_hardware_interface/MarvinBimanualArmHardware"
+         type="marvin_hardware_interface::MarvinBimanualArmHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Marvin CCS M6 bimanual arm hardware interface (14 DOF: 7 left + 7 right).
+      Connects via TJ/FX SDK over TCP/IP to the robot controller.
+    </description>
+  </class>
+</library>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>marvin_hardware_interface</name>
+  <version>0.1.0</version>
+  <description>ros2_control SystemInterface plugin for the Marvin CCS M6 bimanual arm (14 DOF).</description>
+  <maintainer email="guomning@gmail.com">Gabriel-Ning</maintainer>
+  <author email="guomning@gmail.com">Gabriel-Ning</author>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <test_depend>ament_cmake_gtest</test_depend>
+
+  <depend>hardware_interface</depend>
+  <depend>pluginlib</depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_lifecycle</depend>
+
+  <!-- Marvin control SDK (libMarvinSDK) via conda package libmarvin -->
+  <depend>libmarvin</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

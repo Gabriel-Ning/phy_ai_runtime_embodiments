@@ -1,0 +1,35 @@
+joint1:
+  origin:
+    xyz: 0 0 0.123
+    rpy: 0 0 0
+  axis: 0 0 1
+
+joint2:
+  origin:
+    xyz: 0 0 0
+    rpy: 1.5707963 -0.1357866 -3.1415926
+  axis: 0 0 1
+
+joint3:
+  origin:
+    xyz: 0.28503 0 0
+    rpy: 0 0 -1.7938494
+  axis: 0 0 1
+
+joint4:
+  origin:
+    xyz: -0.02198 -0.25075 0
+    rpy: 1.5707963 0 0
+  axis: 0 0 1
+
+joint5:
+  origin:
+    xyz: 0 0 0
+    rpy: -1.5707963 0 0
+  axis: 0 0 1
+
+joint6:
+  origin:
+    xyz: 8.8259E-05 -0.091 0
+    rpy: 1.5707963 0 0
+  axis: 0 0 1

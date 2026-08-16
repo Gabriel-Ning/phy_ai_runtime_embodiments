@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="piper">
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="connected_to" default="world"/>
+  <xacro:arg name="xyz" default="0 0 0"/>
+  <xacro:arg name="rpy" default="0 0 0"/>
+  <xacro:arg name="can_interface" default="can0"/>
+  <xacro:arg name="ros2_control" default="true"/>
+  <xacro:arg name="use_fake_hardware" default="false"/>
+  <xacro:arg name="mit_kd_effort_damping" default="0.0"/>
+
+  <xacro:include filename="$(find piper_description)/urdf/parts/piper_arm.xacro"/>
+  <xacro:include filename="$(find piper_description)/urdf/parts/piper_arm.ros2_control.xacro"/>
+
+  <xacro:piper_arm
+    prefix="$(arg prefix)"
+    connected_to="$(arg connected_to)"
+    xyz="$(arg xyz)"
+    rpy="$(arg rpy)"
+    description_pkg="piper_description"/>
+
+  <xacro:if value="$(arg ros2_control)">
+    <xacro:piper_arm_ros2_control
+      prefix="$(arg prefix)"
+      can_interface="$(arg can_interface)"
+      use_fake_hardware="$(arg use_fake_hardware)"
+      mit_kd_effort_damping="$(arg mit_kd_effort_damping)"/>
+  </xacro:if>
+</robot>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!-- Prefixed experiment-table macro for the Piper workbench cell.
+     Geometry from https://github.com/Marco6-3/experiment_table_models -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="experiment_table">
+  <xacro:macro name="experiment_table"
+    params="prefix:='' parent:='world' xyz:='0 0 0' rpy:='0 0 0'">
+    <joint name="${prefix}mount_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}base_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+    <link name="${prefix}base_link"/>
+    <joint name="${prefix}table_fixed_joint" type="fixed">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}table_link"/>
+      <origin xyz="-0.456428816886 -0.121219992961 0.125482412607" rpy="0 0 0"/>
+    </joint>
+    <link name="${prefix}table_link">
+      <visual>
+        <origin xyz="-0.0435711 0.118414 0.181243" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://piper_description/meshes/table/part_1.stl"/>
+        </geometry>
+        <material name="${prefix}frame_blue">
+          <color rgba="0.615686 0.811765 0.929412 1"/>
+        </material>
+      </visual>
+      <visual>
+        <origin xyz="0.458644 0.11737 0.584518" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://piper_description/meshes/table/part_1__2.stl"/>
+        </geometry>
+        <material name="${prefix}tabletop_black">
+          <color rgba="0.015 0.015 0.015 1"/>
+        </material>
+      </visual>
+    </link>
+  </xacro:macro>
+</robot>

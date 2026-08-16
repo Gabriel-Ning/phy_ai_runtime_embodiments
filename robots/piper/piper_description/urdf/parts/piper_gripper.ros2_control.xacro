@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="piper_gripper_ros2_control">
+  <xacro:macro name="piper_gripper_ros2_control"
+    params="name:='PiperGripperHardware' prefix:='' can_interface:='can0' use_fake_hardware:='false' home_on_activate:='true'">
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:unless value="${use_fake_hardware}">
+          <plugin>piper_hardware_interface/PiperGripperInterface</plugin>
+          <param name="can_interface">${can_interface}</param>
+          <param name="home_on_activate">${'true' if home_on_activate else 'false'}</param>
+        </xacro:unless>
+      </hardware>
+
+      <joint name="${prefix}gripper_joint1">
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+    </ros2_control>
+  </xacro:macro>
+</robot>

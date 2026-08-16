@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="piper_with_gripper">
+  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="connected_to" default="world"/>
+  <xacro:arg name="xyz" default="0 0 0"/>
+  <xacro:arg name="rpy" default="0 0 0"/>
+  <xacro:arg name="can_interface" default="can0"/>
+  <xacro:arg name="load_gripper" default="true"/>
+  <xacro:arg name="ros2_control" default="true"/>
+  <xacro:arg name="use_fake_hardware" default="false"/>
+  <xacro:arg name="enable_gripper_control" default="true"/>
+  <xacro:arg name="gripper_home_on_activate" default="true"/>
+  <xacro:arg name="mit_kd_effort_damping" default="0.0"/>
+  <xacro:arg name="xyz_ee" default="0 0 0"/>
+  <xacro:arg name="rpy_ee" default="0 0 0"/>
+  <xacro:arg
+    name="tcp_xyz"
+    default="${xacro.load_yaml('$(find piper_description)/config/gripper_tcp.yaml')['origin']['xyz']}"/>
+  <xacro:arg
+    name="tcp_rpy"
+    default="${xacro.load_yaml('$(find piper_description)/config/gripper_tcp.yaml')['origin']['rpy']}"/>
+
+  <xacro:include filename="$(find piper_description)/urdf/parts/piper_arm.xacro"/>
+  <xacro:include filename="$(find piper_description)/urdf/parts/piper_gripper.xacro"/>
+  <xacro:include filename="$(find piper_description)/urdf/parts/piper_arm.ros2_control.xacro"/>
+  <xacro:include filename="$(find piper_description)/urdf/parts/piper_gripper.ros2_control.xacro"/>
+
+  <xacro:piper_arm
+    prefix="$(arg prefix)"
+    connected_to="$(arg connected_to)"
+    xyz="$(arg xyz)"
+    rpy="$(arg rpy)"
+    description_pkg="piper_description"/>
+
+  <xacro:if value="$(arg load_gripper)">
+    <xacro:piper_gripper
+      prefix="$(arg prefix)"
+      parent_link="$(arg prefix)flange_link"
+      xyz_ee="$(arg xyz_ee)"
+      rpy_ee="$(arg rpy_ee)"
+      tcp_xyz="$(arg tcp_xyz)"
+      tcp_rpy="$(arg tcp_rpy)"
+      description_pkg="piper_description"/>
+  </xacro:if>
+
+  <xacro:if value="$(arg ros2_control)">
+    <xacro:piper_arm_ros2_control
+      prefix="$(arg prefix)"
+      can_interface="$(arg can_interface)"
+      use_fake_hardware="$(arg use_fake_hardware)"
+      mit_kd_effort_damping="$(arg mit_kd_effort_damping)"/>
+    <xacro:if value="$(arg load_gripper)">
+      <xacro:if value="$(arg enable_gripper_control)">
+        <xacro:piper_gripper_ros2_control
+          name="PiperGripperHardware"
+          prefix="$(arg prefix)"
+          can_interface="$(arg can_interface)"
+          use_fake_hardware="$(arg use_fake_hardware)"
+          home_on_activate="$(arg gripper_home_on_activate)"/>
+      </xacro:if>
+    </xacro:if>
+  </xacro:if>
+</robot>

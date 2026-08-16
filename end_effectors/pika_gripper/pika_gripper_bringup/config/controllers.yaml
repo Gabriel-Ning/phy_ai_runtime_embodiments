@@ -1,0 +1,28 @@
+controller_manager:
+  ros__parameters:
+    # Serial feedback streams at roughly device rate; 100 Hz is plenty for a
+    # gripper and keeps the bench setup light.
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    gripper_controller:
+      type: parallel_gripper_action_controller/GripperActionController
+
+    # Streaming servo path for teleop (Pika Sense retarget) / policy inference.
+    # Claims the same position command interface as gripper_controller —
+    # spawned inactive; switch with:
+    #   ros2 control switch_controllers \
+    #     --deactivate gripper_controller --activate gripper_forward_controller
+    gripper_forward_controller:
+      type: forward_command_controller/ForwardCommandController
+
+gripper_controller:
+  ros__parameters:
+    joint: gripper_left_joint
+
+gripper_forward_controller:
+  ros__parameters:
+    joints: [gripper_left_joint]
+    interface_name: position

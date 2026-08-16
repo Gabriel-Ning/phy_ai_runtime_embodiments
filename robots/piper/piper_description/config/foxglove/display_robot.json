@@ -1,0 +1,107 @@
+{
+  "configById": {
+    "3D!piper": {
+      "cameraState": {
+        "perspective": true,
+        "distance": 1.4,
+        "phi": 60,
+        "thetaOffset": -35,
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "target": [
+          0,
+          0,
+          0.25
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "fovy": 45,
+        "near": 0.01,
+        "far": 5000
+      },
+      "followMode": "follow-none",
+      "scene": {
+        "meshUpAxis": "z_up",
+        "transforms": {
+          "editable": false,
+          "showLabel": false,
+          "labelSize": 0.06,
+          "axisScale": 0.25,
+          "lineWidth": 1,
+          "visible": false
+        },
+        "backgroundColor": "#303030"
+      },
+      "transforms": {},
+      "topics": {},
+      "layers": {
+        "grid": {
+          "visible": true,
+          "frameLocked": true,
+          "label": "Grid",
+          "instanceId": "piper-grid",
+          "layerId": "foxglove.Grid",
+          "size": 10,
+          "divisions": 10,
+          "lineWidth": 1,
+          "color": "#248eff",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        "urdf": {
+          "displayMode": "auto",
+          "fallbackColor": "#ffffff",
+          "showAxis": false,
+          "showOutlines": true,
+          "visible": true,
+          "frameLocked": true,
+          "instanceId": "piper-urdf",
+          "label": "URDF",
+          "layerId": "foxglove.Urdf",
+          "sourceType": "topic",
+          "url": "",
+          "filePath": "",
+          "parameter": "",
+          "topic": "/robot_description",
+          "framePrefix": "",
+          "order": 1,
+          "links": {},
+          "axisScale": 1,
+          "opacity": 1
+        }
+      },
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {},
+      "followTf": "world"
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "playbackConfig": {
+    "speed": 1
+  },
+  "layout": "3D!piper"
+}

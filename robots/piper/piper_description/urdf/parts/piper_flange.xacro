@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="piper_flange">
+  <xacro:macro name="piper_flange"
+    params="prefix:='' parent_link:='link6' description_pkg:='piper_description'">
+    <xacro:property name="inertials" value="${xacro.load_yaml('$(find piper_description)/config/inertials.yaml')}"/>
+
+    <link name="${prefix}flange_link">
+      <inertial>
+        <origin
+          xyz="${inertials['flange_link']['origin']['xyz']}"
+          rpy="${inertials['flange_link']['origin']['rpy']}"/>
+        <mass value="${inertials['flange_link']['mass']}"/>
+        <inertia
+          ixx="${inertials['flange_link']['inertia']['xx']}"
+          ixy="${inertials['flange_link']['inertia']['xy']}"
+          ixz="${inertials['flange_link']['inertia']['xz']}"
+          iyy="${inertials['flange_link']['inertia']['yy']}"
+          iyz="${inertials['flange_link']['inertia']['yz']}"
+          izz="${inertials['flange_link']['inertia']['zz']}"/>
+      </inertial>
+
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/visual/flange.dae"/>
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://${description_pkg}/meshes/piper_arm/collision/flange.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="${prefix}flange_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}${parent_link}"/>
+      <child link="${prefix}flange_link"/>
+    </joint>
+  </xacro:macro>
+</robot>
